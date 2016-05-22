@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NUnit.Framework;
 
 namespace DerAtrox.Arma3LauncherLib.Tests
 {
+	[TestFixture]
     public class LauncherTest
     {
+		[Test]
+		public void UnitTestingTest() {
+			Assert.AreEqual(1, 1);
+		}
+
     }
 }

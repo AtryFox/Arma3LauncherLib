@@ -1,3 +1,6 @@
+[![Build Status TravisCI](https://travis-ci.org/DerAtrox/Arma3LauncherLib.svg?branch=master)](https://travis-ci.org/DerAtrox/Arma3LauncherLib)
+[![Build status AppVeyor](https://ci.appveyor.com/api/projects/status/qaayarfd7urse6ds?svg=true)](https://ci.appveyor.com/project/DerAtrox/arma3launcherlib)
+
 Arma 3 Launcher Library
 =======================
 
