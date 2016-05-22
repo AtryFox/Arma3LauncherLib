@@ -23,12 +23,46 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			this.components = new System.ComponentModel.Container();
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Text = "Form1";
+            this.listProfiles = new System.Windows.Forms.ListBox();
+            this.labelListProfiles = new System.Windows.Forms.Label();
+            this.SuspendLayout();
+            // 
+            // listProfiles
+            // 
+            this.listProfiles.FormattingEnabled = true;
+            this.listProfiles.Location = new System.Drawing.Point(12, 25);
+            this.listProfiles.Name = "listProfiles";
+            this.listProfiles.Size = new System.Drawing.Size(127, 95);
+            this.listProfiles.TabIndex = 0;
+            // 
+            // labelListProfiles
+            // 
+            this.labelListProfiles.AutoSize = true;
+            this.labelListProfiles.Location = new System.Drawing.Point(9, 9);
+            this.labelListProfiles.Name = "labelListProfiles";
+            this.labelListProfiles.Size = new System.Drawing.Size(79, 13);
+            this.labelListProfiles.TabIndex = 1;
+            this.labelListProfiles.Text = "Arma 3 profiles:";
+            // 
+            // MainForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(363, 279);
+            this.Controls.Add(this.labelListProfiles);
+            this.Controls.Add(this.listProfiles);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Name = "MainForm";
+            this.Text = "Arma3LauncherLib.Examples";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
 		}
 
-		#endregion
-	}
+        #endregion
+
+        private System.Windows.Forms.ListBox listProfiles;
+        private System.Windows.Forms.Label labelListProfiles;
+    }
 }
 
