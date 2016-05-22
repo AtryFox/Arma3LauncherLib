@@ -6,7 +6,7 @@ Arma 3 Launcher Library
 
 Simple .NET library which makes creating your custom Arma 3 launcher easier.
 
-This project is currently work in progress.
+This project is currently work in progress. If you want to use this library, please wait until the first rc-version is released. Feel free to watch, star or contribute this project!
 
 ## Prerequisites ##
 - .NET Framework 4.0 or higher
