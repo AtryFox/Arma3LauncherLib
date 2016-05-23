@@ -80,6 +80,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Arma3LauncherLib.SSQLib\Arma3LauncherLib.SSQLib.csproj">
+      <Project>{3f273b18-3c15-420b-bd8f-ded3e4e52996}</Project>
+      <Name>Arma3LauncherLib.SSQLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Arma3LauncherLib\Arma3LauncherLib.csproj">
+      <Project>{C8B8CA9E-104A-4B4B-8DCB-7B3ED17F51E9}</Project>
+      <Name>Arma3LauncherLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
