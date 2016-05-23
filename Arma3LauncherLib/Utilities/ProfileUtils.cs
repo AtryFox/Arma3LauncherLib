@@ -37,10 +37,5 @@ namespace DerAtrox.Arma3LauncherLib.Utilities {
             Encoding utf8 = Encoding.UTF8;
             return iso.GetString(utf8.GetBytes(input));
         }
-
-        public static string Test() {
-            var test = new SourceServerQuery();
-            return test.Server("altis.pirates-gaming.de", 2303).Name;
-        }
     }
 }
