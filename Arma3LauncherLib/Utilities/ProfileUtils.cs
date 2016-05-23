@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
+using DerAtrox.Arma3LauncherLib.SSQLib;
 
 namespace DerAtrox.Arma3LauncherLib.Utilities {
     /// <summary>
@@ -34,7 +35,12 @@ namespace DerAtrox.Arma3LauncherLib.Utilities {
         public static string SerializeProfilename(string input) {
             Encoding iso = Encoding.GetEncoding("ISO-8859-1");
             Encoding utf8 = Encoding.UTF8;
-			return iso.GetString(utf8.GetBytes(input));
+            return iso.GetString(utf8.GetBytes(input));
+        }
+
+        public static string Test() {
+            var test = new SourceServerQuery();
+            return test.Server("altis.pirates-gaming.de", 2303).Name;
         }
     }
 }
