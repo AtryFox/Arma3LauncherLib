@@ -25,6 +25,7 @@
 		private void InitializeComponent() {
             this.listProfiles = new System.Windows.Forms.ListBox();
             this.labelListProfiles = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // listProfiles
@@ -44,11 +45,21 @@
             this.labelListProfiles.TabIndex = 1;
             this.labelListProfiles.Text = "Arma 3 profiles:";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(173, 40);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "label1";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(363, 279);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.labelListProfiles);
             this.Controls.Add(this.listProfiles);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -63,6 +74,7 @@
 
         private System.Windows.Forms.ListBox listProfiles;
         private System.Windows.Forms.Label labelListProfiles;
+        private System.Windows.Forms.Label label1;
     }
 }
 

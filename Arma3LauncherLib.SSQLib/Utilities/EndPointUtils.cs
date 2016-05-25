@@ -2,7 +2,17 @@
 using System.Net;
 
 namespace DerAtrox.Arma3LauncherLib.SSQLib.Utilities {
+    /// <summary>
+    /// Utilities for working with <see cref="IPEndPoint">IPEndPoints</see>.
+    /// </summary>
     public class EndPointUtils {
+        /// <summary>
+        /// Returns an <see cref="IPEndPoint">IPEndPoints</see> from a specific hostname and port.
+        /// </summary>
+        /// <param name="hostName">Hostname to trace.</param>
+        /// <param name="port">Port to add to the <see cref="IPEndPoint">IPEndPoints</see>.</param>
+        /// <param name="throwIfMoreThanOneIp">Throw exception, if hostname returns more then one IP adress.</param>
+        /// <returns></returns>
         public static IPEndPoint GetIpEndPointFromHostName(string hostName, int port, bool throwIfMoreThanOneIp) {
             IPAddress[] addresses = Dns.GetHostAddresses(hostName);
             if (addresses.Length == 0) {

@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using DerAtrox.Arma3LauncherLib.SSQLib.Exceptions;
 using DerAtrox.Arma3LauncherLib.SSQLib.Model;
 using DerAtrox.Arma3LauncherLib.SSQLib.Utilities;
@@ -36,9 +37,9 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib {
         /// <param name="ip">The string containing the IP address or hostname of the server</param>
         /// <param name="port">The port of the server</param>
         /// <returns>Information about the server or throws an SSQLServerException if it could not be retreived</returns>
-        public ServerInfo Server(string ip, int port) {
+        public async Task<ServerInfo> Server(string ip, int port) {
             IPEndPoint endPoint = EndPointUtils.GetIpEndPointFromHostName(ip, port, true);
-            return Server(endPoint);
+            return await Server(endPoint);
         }
 
         /// <summary>
@@ -47,7 +48,7 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib {
         /// </summary>
         /// <param name="ipEnd">The IPEndPoint object containing the IP address and port of the server</param>
         /// <returns>Information about the server or throws an SSQLServerException if it could not be retreived</returns>
-        public ServerInfo Server(EndPoint ipEnd) {
+        public  async Task<ServerInfo> Server(EndPoint ipEnd) {
             //Create a new empty server info object
             var info = new ServerInfo();
 
@@ -56,7 +57,7 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib {
             requestPacket.Data = "TSource Engine Query";
 
             //Attempt to get the server info
-            byte[] buf = SocketUtils.GetInfo(ipEnd, requestPacket);
+            byte[] buf = await SocketUtils.GetInfo(ipEnd, requestPacket);
 
             //Start past the first four bytes which are all 0xff
             var i = 4;
@@ -198,9 +199,9 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib {
         /// <returns>
         ///     A List of PlayerInfo or throws an SSQLServerException if the server could not be reached
         /// </returns>
-        public List<PlayerInfo> Players(string ip, int port) {
+        public async Task<List<PlayerInfo>> Players(string ip, int port) {
             IPEndPoint endPoint = EndPointUtils.GetIpEndPointFromHostName(ip, port, true);
-            return Players(endPoint);
+            return await Players(endPoint);
         }
 
         /// <summary>
@@ -210,7 +211,7 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib {
         /// <returns>
         ///     A List of PlayerInfo or throws an SSQLServerException if the server could not be reached
         /// </returns>
-        public List<PlayerInfo> Players(IPEndPoint ipEnd) {
+        public async Task<List<PlayerInfo>> Players(IPEndPoint ipEnd) {
             //Create a new array list to store the player array
             var players = new List<PlayerInfo>();
 
@@ -227,7 +228,7 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib {
             challenge[8] = 0x00;
 
             //Attempt to get the challenge response
-            byte[] buf = SocketUtils.GetInfo(ipEnd, challenge);
+            byte[] buf = await SocketUtils.GetInfo(ipEnd, challenge);
 
             var i = 4;
 
@@ -249,7 +250,7 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib {
 
             try {
                 //Attempt to get the players response
-                buf = SocketUtils.GetInfo(ipEnd, requestPlayer);
+                buf = await SocketUtils.GetInfo(ipEnd, requestPlayer);
             }
             catch (SourceServerException) {
                 return null;

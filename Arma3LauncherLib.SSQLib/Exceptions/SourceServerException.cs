@@ -18,7 +18,20 @@
 using System;
 
 namespace DerAtrox.Arma3LauncherLib.SSQLib.Exceptions {
+    /// <summary>
+    /// The exception that is thrown when source server can not be reached.
+    /// </summary>
     public class SourceServerException : Exception {
+        /// <summary>
+        /// Initializes a new instance of the SourceServerException class.
+        /// </summary>
+        public SourceServerException() : base() {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the SourceServerException class with a specific error message.
+        /// </summary>
+        /// <param name="message">Error message.</param>
         public SourceServerException(string message) : base(message) {
         }
     }
