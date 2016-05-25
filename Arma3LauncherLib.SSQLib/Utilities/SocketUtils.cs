@@ -26,7 +26,7 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib.Utilities {
     internal class SocketUtils {
         internal static async Task<byte[]> GetInfo(EndPoint ipe, Packet packet) {
             //Check if network is available
-            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable()) {
+            if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable()) {
                 throw new NetworkNotAvailableException("Network not available");
             }
 
@@ -64,7 +64,7 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib.Utilities {
 
         internal static async Task<byte[]> GetInfo(IPEndPoint ipe, byte[] request) {
             //Check if network is available
-            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable()) {
+            if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable()) {
                 throw new NetworkNotAvailableException("Network not available");
             }
 

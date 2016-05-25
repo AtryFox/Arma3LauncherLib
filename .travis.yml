@@ -1,8 +1,8 @@
 language: csharp
 solution: Arma3LauncherLib.sln
-before_install:
-  - sudo apt-get install nunit-console
-before_script:
+install:
   - nuget restore Arma3LauncherLib.sln
-after_script:
-  - nunit-console Arma3LauncherLib.Tests/bin/Release/Arma3LauncherLib.Tests.dll
+  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+script:
+  - xbuild /p:Configuration=Release Arma3LauncherLib.sln
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./Arma3LauncherLib.Tests/bin/Release/Arma3LauncherLib.Tests.dll
