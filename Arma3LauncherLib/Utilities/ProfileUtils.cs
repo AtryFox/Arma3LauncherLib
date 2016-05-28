@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
+using DerAtrox.Arma3LauncherLib.Model;
 
 namespace DerAtrox.Arma3LauncherLib.Utilities {
     /// <summary>
