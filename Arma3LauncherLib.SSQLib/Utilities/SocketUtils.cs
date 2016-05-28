@@ -24,7 +24,7 @@ using DerAtrox.Arma3LauncherLib.SSQLib.Exceptions;
 
 namespace DerAtrox.Arma3LauncherLib.SSQLib.Utilities {
     internal class SocketUtils {
-        internal static async Task<byte[]> GetInfo(EndPoint ipe, Packet packet) {
+        internal static byte[] GetInfo(EndPoint ipe, Packet packet) {
             //Check if network is available
             if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable()) {
                 throw new NetworkNotAvailableException("Network not available");
@@ -42,7 +42,7 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib.Utilities {
 
             try {
                 //Send the request to the server
-                await Task.Run(() => srvSocket.SendTo(packet.OutputAsBytes(), ipe));
+                srvSocket.SendTo(packet.OutputAsBytes(), ipe);
             } catch (SocketException se) {
                 throw new SourceServerException("Could not send packet to server {" + se.Message + "}");
             }
@@ -53,7 +53,7 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib.Utilities {
 
             try {
                 //Receive the data from the server
-                await Task.Run(() => srvSocket.ReceiveFrom(rcvPacketInfo, ref remote));
+                srvSocket.ReceiveFrom(rcvPacketInfo, ref remote);
             } catch (SocketException se) {
                 throw new SourceServerException("Could not receive packet from server {" + se.Message + "}");
             }
@@ -62,7 +62,7 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib.Utilities {
             return rcvPacketInfo;
         }
 
-        internal static async Task<byte[]> GetInfo(IPEndPoint ipe, byte[] request) {
+        internal static byte[] GetInfo(IPEndPoint ipe, byte[] request) {
             //Check if network is available
             if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable()) {
                 throw new NetworkNotAvailableException("Network not available");
@@ -80,7 +80,7 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib.Utilities {
 
             try {
                 //Send the request to the server
-                await Task.Run(() => srvSocket.SendTo(request, ipe));
+                srvSocket.SendTo(request, ipe);
             } catch (SocketException se) {
                 throw new SourceServerException("Could not send packet to server {" + se.Message + "}");
             }
@@ -91,7 +91,7 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib.Utilities {
 
             try {
                 //Receive the data from the server
-                await Task.Run(() => srvSocket.ReceiveFrom(rcvPacketInfo, ref remote));
+                srvSocket.ReceiveFrom(rcvPacketInfo, ref remote);
             } catch (SocketException se) {
                 throw new SourceServerException("Could not receive packet from server {" + se.Message + "}");
             }

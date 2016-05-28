@@ -37,9 +37,9 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib {
         /// <param name="ip">The string containing the IP address or hostname of the server</param>
         /// <param name="port">The port of the server</param>
         /// <returns>Information about the server or throws an SSQLServerException if it could not be retreived</returns>
-        public async Task<ServerInfo> Server(string ip, int port) {
+        public ServerInfo Server(string ip, int port) {
             IPEndPoint endPoint = EndPointUtils.GetIpEndPointFromHostName(ip, port, true);
-            return await Server(endPoint);
+            return Server(endPoint);
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib {
         /// </summary>
         /// <param name="ipEnd">The IPEndPoint object containing the IP address and port of the server</param>
         /// <returns>Information about the server or throws an SSQLServerException if it could not be retreived</returns>
-        public  async Task<ServerInfo> Server(EndPoint ipEnd) {
+        public ServerInfo Server(EndPoint ipEnd) {
             //Create a new empty server info object
             var info = new ServerInfo();
 
@@ -57,7 +57,7 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib {
             requestPacket.Data = "TSource Engine Query";
 
             //Attempt to get the server info
-            byte[] buf = await SocketUtils.GetInfo(ipEnd, requestPacket);
+            byte[] buf = SocketUtils.GetInfo(ipEnd, requestPacket);
 
             //Start past the first four bytes which are all 0xff
             var i = 4;
@@ -72,7 +72,7 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib {
 
             //Retrieve the server name
             while (buf[i] != 0x00) {
-                srvName.Append((char) buf[i]);
+                srvName.Append((char)buf[i]);
                 i++;
             }
 
@@ -86,7 +86,7 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib {
 
             //Retrieve the map name
             while (buf[i] != 0x00) {
-                mapName.Append((char) buf[i]);
+                mapName.Append((char)buf[i]);
                 i++;
             }
 
@@ -99,7 +99,7 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib {
 
             //Get the short name for the game
             while (buf[i] != 0x00) {
-                gameName.Append((char) buf[i]);
+                gameName.Append((char)buf[i]);
                 i++;
             }
 
@@ -110,7 +110,7 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib {
 
             //Get the friendly game description
             while (buf[i] != 0x00) {
-                gameFriendly.Append((char) buf[i]);
+                gameFriendly.Append((char)buf[i]);
                 i++;
             }
 
@@ -137,20 +137,20 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib {
             info.BotCount = buf[i++].ToString();
 
             //Get the dedicated server type
-            if ((char) buf[i] == 'l')
+            if ((char)buf[i] == 'l')
                 info.Dedicated = ServerInfo.DedicatedType.Listen;
-            else if ((char) buf[i] == 'd')
+            else if ((char)buf[i] == 'd')
                 info.Dedicated = ServerInfo.DedicatedType.Dedicated;
-            else if ((char) buf[i] == 'p')
+            else if ((char)buf[i] == 'p')
                 info.Dedicated = ServerInfo.DedicatedType.Sourcetv;
 
             //Move to the next byte
             i++;
 
             //Get the OS type
-            if ((char) buf[i] == 'l')
+            if ((char)buf[i] == 'l')
                 info.Os = ServerInfo.OsType.Linux;
-            else if ((char) buf[i] == 'w')
+            else if ((char)buf[i] == 'w')
                 info.Os = ServerInfo.OsType.Windows;
 
             //Move to the next byte
@@ -166,7 +166,7 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib {
 
             //Get the game version
             while (buf[i] != 0x00) {
-                versionInfo.Append((char) buf[i]);
+                versionInfo.Append((char)buf[i]);
                 i++;
             }
 
@@ -179,11 +179,11 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib {
             //Check lockstate
             var sb = new StringBuilder();
             while (buf[i] != 0) {
-                sb.Append((char) buf[i]);
+                sb.Append((char)buf[i]);
                 i++;
             }
 
-            char[] trimChars = {','};
+            char[] trimChars = { ',' };
             List<string> list = sb.ToString().TrimEnd(trimChars).Split(',').ToList();
 
             info.Locked = list.Contains("lt");
@@ -199,9 +199,9 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib {
         /// <returns>
         ///     A List of PlayerInfo or throws an SSQLServerException if the server could not be reached
         /// </returns>
-        public async Task<List<PlayerInfo>> Players(string ip, int port) {
+        public List<PlayerInfo> Players(string ip, int port) {
             IPEndPoint endPoint = EndPointUtils.GetIpEndPointFromHostName(ip, port, true);
-            return await Players(endPoint);
+            return Players(endPoint);
         }
 
         /// <summary>
@@ -211,7 +211,7 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib {
         /// <returns>
         ///     A List of PlayerInfo or throws an SSQLServerException if the server could not be reached
         /// </returns>
-        public async Task<List<PlayerInfo>> Players(IPEndPoint ipEnd) {
+        public List<PlayerInfo> Players(IPEndPoint ipEnd) {
             //Create a new array list to store the player array
             var players = new List<PlayerInfo>();
 
@@ -228,7 +228,7 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib {
             challenge[8] = 0x00;
 
             //Attempt to get the challenge response
-            byte[] buf = await SocketUtils.GetInfo(ipEnd, challenge);
+            byte[] buf = SocketUtils.GetInfo(ipEnd, challenge);
 
             var i = 4;
 
@@ -250,9 +250,8 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib {
 
             try {
                 //Attempt to get the players response
-                buf = await SocketUtils.GetInfo(ipEnd, requestPlayer);
-            }
-            catch (SourceServerException) {
+                buf = SocketUtils.GetInfo(ipEnd, requestPlayer);
+            } catch (SourceServerException) {
                 return null;
             }
 
@@ -278,7 +277,7 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib {
 
                 //Loop through and store the player's name
                 while (buf[i] != 0x00) {
-                    playerName.Append((char) buf[i++]);
+                    playerName.Append((char)buf[i++]);
                 }
 
                 //Move past the end of the string
