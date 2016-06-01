@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.NetworkInformation;
+using System.Threading.Tasks;
 using DerAtrox.Arma3LauncherLib.SSQLib.Model;
 
 namespace DerAtrox.Arma3LauncherLib.Model {
@@ -32,7 +33,13 @@ namespace DerAtrox.Arma3LauncherLib.Model {
         /// <returns>Ping to the server.</returns>
         int PingServer();
         /// <summary>
-        /// Connects to the provided server.
+        /// Pings the provided server asynchronously.
+        /// </summary>
+        /// <returns>Ping to the server.</returns>
+        Task<int> PingServerAsync();
+
+        /// <summary>
+        /// 
         /// </summary>
         void Connect();
     }
