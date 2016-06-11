@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
-using System.Net.NetworkInformation;
-using System.Threading;
 using System.Threading.Tasks;
+using DerAtrox.Arma3LauncherLib.SSQLib;
 using DerAtrox.Arma3LauncherLib.SSQLib.Model;
 using DerAtrox.Arma3LauncherLib.SSQLib.Utilities;
 
@@ -33,18 +33,18 @@ namespace DerAtrox.Arma3LauncherLib.Model {
         }
 
         public ServerInfo GetServerInfo() {
-            throw new NotImplementedException();
+            return new SourceServerQuery().Server(_ipEndPoint);
         }
 
         public async Task<ServerInfo> GetServerInfoAsync() {
             return await Task.Run(() => GetServerInfo());
         }
 
-        public PlayerInfo[] GetPlayerList() {
-            throw new NotImplementedException();
+        public List<PlayerInfo> GetPlayerList() {
+            return new SourceServerQuery().Players(_ipEndPoint);
         }
 
-        public async Task<PlayerInfo[]> GetPlayerListAsync() {
+        public async Task<List<PlayerInfo>> GetPlayerListAsync() {
             return await Task.Run(() => GetPlayerList());
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Net.NetworkInformation;
+﻿using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using DerAtrox.Arma3LauncherLib.SSQLib.Model;
 
@@ -21,12 +22,12 @@ namespace DerAtrox.Arma3LauncherLib.Model {
         /// Fetches the connected players on the provided server.
         /// </summary>
         /// <returns>Array with multiple <see cref="PlayerInfo">player infos</see>.</returns>
-        PlayerInfo[] GetPlayerList();
+        List<PlayerInfo> GetPlayerList();
         /// <summary>
         /// Fetches the connected players on the provided server asynchronously.
         /// </summary>
         /// <returns>Array with multiple <see cref="PlayerInfo">player infos</see>.</returns>
-        Task<PlayerInfo[]> GetPlayerListAsync();
+        Task<List<PlayerInfo>> GetPlayerListAsync();
         /// <summary>
         /// Pings the provided server.
         /// </summary>
