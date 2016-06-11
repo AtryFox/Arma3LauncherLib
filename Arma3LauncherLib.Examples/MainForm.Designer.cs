@@ -44,6 +44,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtServerAdress = new System.Windows.Forms.TextBox();
+            this.listServerPlayers = new System.Windows.Forms.ListBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numServerSteamPort)).BeginInit();
@@ -52,9 +54,10 @@
             // listProfiles
             // 
             this.listProfiles.FormattingEnabled = true;
+            this.listProfiles.IntegralHeight = false;
             this.listProfiles.Location = new System.Drawing.Point(6, 19);
             this.listProfiles.Name = "listProfiles";
-            this.listProfiles.Size = new System.Drawing.Size(136, 95);
+            this.listProfiles.Size = new System.Drawing.Size(136, 100);
             this.listProfiles.TabIndex = 0;
             // 
             // groupBox1
@@ -69,8 +72,10 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.numServerSteamPort);
             this.groupBox2.Controls.Add(this.lblServerGamePort);
+            this.groupBox2.Controls.Add(this.listServerPlayers);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.btnServerAsync);
             this.groupBox2.Controls.Add(this.lblServerMaxSlots);
@@ -89,7 +94,7 @@
             this.groupBox2.Controls.Add(this.txtServerAdress);
             this.groupBox2.Location = new System.Drawing.Point(12, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(185, 255);
+            this.groupBox2.Size = new System.Drawing.Size(185, 350);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Test server query";
@@ -254,11 +259,29 @@
             this.txtServerAdress.Size = new System.Drawing.Size(173, 20);
             this.txtServerAdress.TabIndex = 0;
             // 
+            // listServerPlayers
+            // 
+            this.listServerPlayers.FormattingEnabled = true;
+            this.listServerPlayers.IntegralHeight = false;
+            this.listServerPlayers.Location = new System.Drawing.Point(9, 249);
+            this.listServerPlayers.Name = "listServerPlayers";
+            this.listServerPlayers.Size = new System.Drawing.Size(170, 95);
+            this.listServerPlayers.TabIndex = 1;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 233);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(51, 13);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "Playerlist:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(363, 279);
+            this.ClientSize = new System.Drawing.Size(363, 369);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -295,6 +318,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtServerAdress;
         private System.Windows.Forms.NumericUpDown numServerSteamPort;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ListBox listServerPlayers;
     }
 }
 

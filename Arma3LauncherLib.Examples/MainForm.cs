@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Net;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using DerAtrox.Arma3LauncherLib.Model;
 using DerAtrox.Arma3LauncherLib.SSQLib.Exceptions;
@@ -13,14 +12,6 @@ namespace DerAtrox.Arma3LauncherLib.Examples {
             InitializeComponent();
 
             listProfiles.DataSource = ProfileUtils.GetProfiles();
-        }
-
-        private void SetServerInfo(ServerInfo serverInfo) {
-            lblServerName.Text = serverInfo.Name;
-            lblServerGamePort.Text = serverInfo.Port;
-            lblServerMap.Text = serverInfo.Map;
-            lblServerSlots.Text = serverInfo.PlayerCount;
-            lblServerMaxSlots.Text = serverInfo.MaxPlayers;
         }
 
         private async void btnServerGo_Click(object sender, EventArgs e) {
@@ -36,10 +27,26 @@ namespace DerAtrox.Arma3LauncherLib.Examples {
             var b = (Button)sender;
 
             try {
+                ServerInfo serverInfo;
+                List<PlayerInfo> playerInfo;
+
                 if (b.Text.Contains("Async")) {
-                    SetServerInfo(await server.GetServerInfoAsync());
+                    serverInfo = await server.GetServerInfoAsync();
+                    playerInfo = await server.GetPlayerListAsync();
                 } else {
-                    SetServerInfo(server.GetServerInfo());
+                    serverInfo = await server.GetServerInfoAsync();
+                    playerInfo = server.GetPlayerList();
+                }
+
+                lblServerName.Text = serverInfo.Name;
+                lblServerGamePort.Text = serverInfo.Port;
+                lblServerMap.Text = serverInfo.Map;
+                lblServerSlots.Text = serverInfo.PlayerCount;
+                lblServerMaxSlots.Text = serverInfo.MaxPlayers;
+
+                listServerPlayers.Items.Clear();
+                foreach (PlayerInfo p in playerInfo) {
+                    listServerPlayers.Items.Add(p.Name);
                 }
             } catch (SourceServerException ex) {
                 MessageBox.Show(@"Error: " + ex.Message);
