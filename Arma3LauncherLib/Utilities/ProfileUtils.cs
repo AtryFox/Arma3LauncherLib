@@ -25,16 +25,5 @@ namespace DerAtrox.Arma3LauncherLib.Utilities {
             l.AddRange(dirs.Select(s => HttpUtility.UrlDecode(Path.GetFileName(s))));
             return l;
         }
-
-        /// <summary>
-        /// Serializes a utf8 formatted string into the iso format used by the Arma 3 name start parameter.
-        /// </summary>
-        /// <param name="input">String to serialize.</param>
-        /// <returns>Serialized input string.</returns>
-        public static string SerializeProfilename(string input) {
-            Encoding iso = Encoding.GetEncoding("ISO-8859-1");
-            Encoding utf8 = Encoding.UTF8;
-            return iso.GetString(utf8.GetBytes(input));
-        }
     }
 }
