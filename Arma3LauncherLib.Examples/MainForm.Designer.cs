@@ -26,8 +26,10 @@
             this.listProfiles = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.numServerSteamPort = new System.Windows.Forms.NumericUpDown();
             this.lblServerGamePort = new System.Windows.Forms.Label();
+            this.listServerPlayers = new System.Windows.Forms.ListBox();
             this.label5 = new System.Windows.Forms.Label();
             this.btnServerAsync = new System.Windows.Forms.Button();
             this.lblServerMaxSlots = new System.Windows.Forms.Label();
@@ -44,11 +46,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtServerAdress = new System.Windows.Forms.TextBox();
-            this.listServerPlayers = new System.Windows.Forms.ListBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.numServerGamePort = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numServerSteamPort)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numServerGamePort)).BeginInit();
             this.SuspendLayout();
             // 
             // listProfiles
@@ -72,6 +75,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.numServerGamePort);
+            this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.numServerSteamPort);
             this.groupBox2.Controls.Add(this.lblServerGamePort);
@@ -99,6 +104,15 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Test server query";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 233);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(51, 13);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "Playerlist:";
+            // 
             // numServerSteamPort
             // 
             this.numServerSteamPort.Location = new System.Drawing.Point(6, 71);
@@ -108,7 +122,7 @@
             0,
             0});
             this.numServerSteamPort.Name = "numServerSteamPort";
-            this.numServerSteamPort.Size = new System.Drawing.Size(173, 20);
+            this.numServerSteamPort.Size = new System.Drawing.Size(75, 20);
             this.numServerSteamPort.TabIndex = 18;
             // 
             // lblServerGamePort
@@ -118,6 +132,15 @@
             this.lblServerGamePort.Name = "lblServerGamePort";
             this.lblServerGamePort.Size = new System.Drawing.Size(0, 13);
             this.lblServerGamePort.TabIndex = 17;
+            // 
+            // listServerPlayers
+            // 
+            this.listServerPlayers.FormattingEnabled = true;
+            this.listServerPlayers.IntegralHeight = false;
+            this.listServerPlayers.Location = new System.Drawing.Point(9, 249);
+            this.listServerPlayers.Name = "listServerPlayers";
+            this.listServerPlayers.Size = new System.Drawing.Size(170, 95);
+            this.listServerPlayers.TabIndex = 1;
             // 
             // label5
             // 
@@ -177,9 +200,8 @@
             this.lblServerPing.AutoSize = true;
             this.lblServerPing.Location = new System.Drawing.Point(61, 178);
             this.lblServerPing.Name = "lblServerPing";
-            this.lblServerPing.Size = new System.Drawing.Size(86, 13);
+            this.lblServerPing.Size = new System.Drawing.Size(0, 13);
             this.lblServerPing.TabIndex = 10;
-            this.lblServerPing.Text = "Not implemented";
             // 
             // label8
             // 
@@ -239,9 +261,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 55);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(161, 13);
+            this.label2.Size = new System.Drawing.Size(58, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Steam port (mostly gameport + 1)";
+            this.label2.Text = "Steam port";
             // 
             // label1
             // 
@@ -259,23 +281,26 @@
             this.txtServerAdress.Size = new System.Drawing.Size(173, 20);
             this.txtServerAdress.TabIndex = 0;
             // 
-            // listServerPlayers
+            // numServerGamePort
             // 
-            this.listServerPlayers.FormattingEnabled = true;
-            this.listServerPlayers.IntegralHeight = false;
-            this.listServerPlayers.Location = new System.Drawing.Point(9, 249);
-            this.listServerPlayers.Name = "listServerPlayers";
-            this.listServerPlayers.Size = new System.Drawing.Size(170, 95);
-            this.listServerPlayers.TabIndex = 1;
+            this.numServerGamePort.Location = new System.Drawing.Point(87, 71);
+            this.numServerGamePort.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
+            this.numServerGamePort.Name = "numServerGamePort";
+            this.numServerGamePort.Size = new System.Drawing.Size(75, 20);
+            this.numServerGamePort.TabIndex = 21;
             // 
-            // label4
+            // label7
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 233);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(51, 13);
-            this.label4.TabIndex = 19;
-            this.label4.Text = "Playerlist:";
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(87, 55);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(56, 13);
+            this.label7.TabIndex = 20;
+            this.label7.Text = "Game port";
             // 
             // MainForm
             // 
@@ -291,6 +316,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numServerSteamPort)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numServerGamePort)).EndInit();
             this.ResumeLayout(false);
 
 		}
@@ -320,6 +346,8 @@
         private System.Windows.Forms.NumericUpDown numServerSteamPort;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListBox listServerPlayers;
+        private System.Windows.Forms.NumericUpDown numServerGamePort;
+        private System.Windows.Forms.Label label7;
     }
 }
 

@@ -139,5 +139,10 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib.Model {
         ///     Stores the operating system of the server (Windows, Linux)
         /// </summary>
         public OsType Os { get; set; } = OsType.None;
+
+        /// <summary>
+        ///     Stores the ping to the server
+        /// </summary>
+        public float Ping { get; set; } = -1;
     }
 }

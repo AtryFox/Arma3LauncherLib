@@ -9,6 +9,18 @@ namespace DerAtrox.Arma3LauncherLib.Model {
     /// </summary>
     public interface IArmaServer {
         /// <summary>
+        /// Gets or sets the adress of the Arma server.
+        /// </summary>
+        string ServerAdress { get; set; }
+        /// <summary>
+        /// Gets or sets the game port of the Arma server.
+        /// </summary>
+        int GamePort { get; set; }
+        /// <summary>
+        /// Gets or sets the steam query port of the Arma server.
+        /// </summary>
+        int SteamPort { get; set; }
+        /// <summary>
         /// Fetches the server info of the provided server.
         /// </summary>
         /// <returns><see cref="ServerInfo">Server info</see> of the provided server.</returns>
@@ -28,20 +40,5 @@ namespace DerAtrox.Arma3LauncherLib.Model {
         /// </summary>
         /// <returns>Array with multiple <see cref="PlayerInfo">player infos</see>.</returns>
         Task<List<PlayerInfo>> GetPlayerListAsync();
-        /// <summary>
-        /// Pings the provided server.
-        /// </summary>
-        /// <returns>Ping to the server.</returns>
-        int PingServer();
-        /// <summary>
-        /// Pings the provided server asynchronously.
-        /// </summary>
-        /// <returns>Ping to the server.</returns>
-        Task<int> PingServerAsync();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        void Connect();
     }
 }

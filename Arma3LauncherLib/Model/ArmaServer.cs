@@ -11,29 +11,35 @@ namespace DerAtrox.Arma3LauncherLib.Model {
     /// Provides a collection of methods to use with a Arma server.
     /// </summary>
     public class ArmaServer : IArmaServer {
-        private IPEndPoint _ipEndPoint;
-
         /// <summary>
         /// Initialzes a new Arma server using an <see cref="IPEndPoint">IPEndPoint.</see>
         /// </summary>
-        /// <param name="ipEndPoint">IPEndPoint of Arma server with steamport (usually gameport + 1).</param>
-        public ArmaServer(IPEndPoint ipEndPoint) {
-            _ipEndPoint = ipEndPoint;
+        /// <param name="ipEndPointSteam">IPEndPoint of Arma server with steam querry port (usually gameport + 1).</param>
+        /// <param name="gameport">Gameport of Arma server.</param>
+        public ArmaServer(IPEndPoint ipEndPointSteam, int gameport) {
+            ServerAdress = ipEndPointSteam.Address.ToString();
+            GamePort = gameport;
+            SteamPort = ipEndPointSteam.Port;
         }
 
         /// <summary>
         /// Initialzes a new Arma server using an <see cref="IPEndPoint">IPEndPoint.</see>
         /// </summary>
-        /// <param name="ip">IP or hostname of Arma server.</param>
-        /// <param name="port">Steamport of Arma server (usually gameport + 1).</param>
-        public ArmaServer(string ip, int port) {
-            IPEndPoint ipEndPoint = EndPointUtils.GetIpEndPointFromHostName(ip, port, true);
-
-            _ipEndPoint = ipEndPoint;
+        /// <param name="host">IP or hostname of Arma server.</param>
+        /// <param name="gameport">Gameport of Arma server.</param>
+        /// <param name="steamport">Steam query port (usually gameport + 1) of Arma server.</param>
+        public ArmaServer(string host, int gameport, int steamport) {
+            ServerAdress = host;
+            GamePort = gameport;
+            SteamPort = steamport;
         }
+
+        public string ServerAdress { get; set; }
+        public int GamePort { get; set; }
+        public int SteamPort { get; set; }
 
         public ServerInfo GetServerInfo() {
-            return new SourceServerQuery().Server(_ipEndPoint);
+            return new SourceServerQuery().Server(ServerAdress, SteamPort);
         }
 
         public async Task<ServerInfo> GetServerInfoAsync() {
@@ -41,23 +47,11 @@ namespace DerAtrox.Arma3LauncherLib.Model {
         }
 
         public List<PlayerInfo> GetPlayerList() {
-            return new SourceServerQuery().Players(_ipEndPoint);
+            return new SourceServerQuery().Players(ServerAdress, SteamPort);
         }
 
         public async Task<List<PlayerInfo>> GetPlayerListAsync() {
             return await Task.Run(() => GetPlayerList());
-        }
-
-        public int PingServer() {
-            throw new NotImplementedException();
-        }
-
-        public async Task<int> PingServerAsync() {
-            return await Task.Run(() => PingServer());
-        }
-
-        public void Connect() {
-            throw new NotImplementedException();
         }
     }
 }

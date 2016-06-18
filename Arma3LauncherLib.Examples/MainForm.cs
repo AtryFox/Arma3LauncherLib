@@ -14,11 +14,11 @@ namespace DerAtrox.Arma3LauncherLib.Examples {
             listProfiles.DataSource = ProfileUtils.GetProfiles();
         }
 
-        private async void btnServerGo_Click(object sender, EventArgs e) {
-            IArmaServer server;
+        private IArmaServer _currentServer;
 
+        private async void btnServerGo_Click(object sender, EventArgs e) {
             try {
-                server = new ArmaServer(txtServerAdress.Text, Convert.ToInt32(numServerSteamPort.Value));
+                _currentServer = new ArmaServer(txtServerAdress.Text, Convert.ToInt32(numServerGamePort.Value), Convert.ToInt32(numServerSteamPort.Value));
             } catch (ArgumentException ex) {
                 MessageBox.Show(@"Error: " + ex.Message);
                 return;
@@ -31,15 +31,16 @@ namespace DerAtrox.Arma3LauncherLib.Examples {
                 List<PlayerInfo> playerInfo;
 
                 if (b.Text.Contains("Async")) {
-                    serverInfo = await server.GetServerInfoAsync();
-                    playerInfo = await server.GetPlayerListAsync();
+                    serverInfo = await _currentServer.GetServerInfoAsync();
+                    playerInfo = await _currentServer.GetPlayerListAsync();
                 } else {
-                    serverInfo = await server.GetServerInfoAsync();
-                    playerInfo = server.GetPlayerList();
+                    serverInfo = _currentServer.GetServerInfo();
+                    playerInfo = _currentServer.GetPlayerList();
                 }
 
                 lblServerName.Text = serverInfo.Name;
-                lblServerGamePort.Text = serverInfo.Port;
+                lblServerGamePort.Text = _currentServer.GamePort.ToString();
+                lblServerPing.Text = serverInfo.Ping.ToString();
                 lblServerMap.Text = serverInfo.Map;
                 lblServerSlots.Text = serverInfo.PlayerCount;
                 lblServerMaxSlots.Text = serverInfo.MaxPlayers;

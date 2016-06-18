@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -52,12 +53,23 @@ namespace DerAtrox.Arma3LauncherLib.SSQLib {
             //Create a new empty server info object
             var info = new ServerInfo();
 
-            //Create a new packet and request
+            //Create a new packet
             var requestPacket = new Packet();
+            
+            //Request packet
             requestPacket.Data = "TSource Engine Query";
+
+            //Start measure ping
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
 
             //Attempt to get the server info
             byte[] buf = SocketUtils.GetInfo(ipEnd, requestPacket);
+            info.Ping = stopwatch.ElapsedMilliseconds;
+
+            //End measure ping
+            stopwatch.Stop();
+            info.Ping = stopwatch.ElapsedMilliseconds;
 
             //Start past the first four bytes which are all 0xff
             var i = 4;
