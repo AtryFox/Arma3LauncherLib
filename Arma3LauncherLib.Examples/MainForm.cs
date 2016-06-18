@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 using DerAtrox.Arma3LauncherLib.Model;
 using DerAtrox.Arma3LauncherLib.SSQLib.Exceptions;
@@ -14,7 +15,7 @@ namespace DerAtrox.Arma3LauncherLib.Examples {
             listProfiles.DataSource = ProfileUtils.GetProfiles();
         }
 
-        private IArmaServer _currentServer;
+        private ArmaServer _currentServer;
 
         private async void btnServerGo_Click(object sender, EventArgs e) {
             try {
@@ -51,6 +52,31 @@ namespace DerAtrox.Arma3LauncherLib.Examples {
                 }
             } catch (SourceServerException ex) {
                 MessageBox.Show(@"Error: " + ex.Message);
+            }
+        }
+
+        private void btnConnect_Click(object sender, EventArgs e) {
+            if (_currentServer == null) {
+                return;
+            }
+
+            ArmaStartSettings settings = new ArmaStartSettings {
+                Windowed = chkWindow.Checked,
+                ShowScriptErrors = chkScriptErrors.Checked,
+                NoPause = chkNoSplash.Checked,
+                Profile = listProfiles.SelectedIndex >= 0 ? listProfiles.SelectedItem.ToString() : ""
+            };
+
+            new ArmaLauncher().Connect(_currentServer, txtArmaPath.Text, settings);
+
+        }
+
+        private void MainForm_Load(object sender, EventArgs e) {
+            try {
+                txtArmaPath.Text = Path.Combine(ArmaUtils.GetArma3Path(), "arma3battleye.exe");
+            }
+            catch {
+                // ignored
             }
         }
     }

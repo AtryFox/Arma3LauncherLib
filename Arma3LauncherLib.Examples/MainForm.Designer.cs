@@ -48,10 +48,18 @@
             this.txtServerAdress = new System.Windows.Forms.TextBox();
             this.numServerGamePort = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
+            this.btnConnect = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.chkWindow = new System.Windows.Forms.CheckBox();
+            this.chkScriptErrors = new System.Windows.Forms.CheckBox();
+            this.chkNoSplash = new System.Windows.Forms.CheckBox();
+            this.txtArmaPath = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numServerSteamPort)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numServerGamePort)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // listProfiles
@@ -302,21 +310,96 @@
             this.label7.TabIndex = 20;
             this.label7.Text = "Game port";
             // 
+            // btnConnect
+            // 
+            this.btnConnect.Location = new System.Drawing.Point(63, 184);
+            this.btnConnect.Name = "btnConnect";
+            this.btnConnect.Size = new System.Drawing.Size(79, 23);
+            this.btnConnect.TabIndex = 5;
+            this.btnConnect.Text = "Connect";
+            this.btnConnect.UseVisualStyleBackColor = true;
+            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.label9);
+            this.groupBox3.Controls.Add(this.txtArmaPath);
+            this.groupBox3.Controls.Add(this.chkNoSplash);
+            this.groupBox3.Controls.Add(this.chkScriptErrors);
+            this.groupBox3.Controls.Add(this.chkWindow);
+            this.groupBox3.Controls.Add(this.btnConnect);
+            this.groupBox3.Location = new System.Drawing.Point(203, 143);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(148, 213);
+            this.groupBox3.TabIndex = 6;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Arma settings";
+            // 
+            // chkWindow
+            // 
+            this.chkWindow.AutoSize = true;
+            this.chkWindow.Location = new System.Drawing.Point(6, 19);
+            this.chkWindow.Name = "chkWindow";
+            this.chkWindow.Size = new System.Drawing.Size(106, 17);
+            this.chkWindow.TabIndex = 6;
+            this.chkWindow.Text = "Windowed mode";
+            this.chkWindow.UseVisualStyleBackColor = true;
+            // 
+            // chkScriptErrors
+            // 
+            this.chkScriptErrors.AutoSize = true;
+            this.chkScriptErrors.Location = new System.Drawing.Point(6, 42);
+            this.chkScriptErrors.Name = "chkScriptErrors";
+            this.chkScriptErrors.Size = new System.Drawing.Size(110, 17);
+            this.chkScriptErrors.TabIndex = 7;
+            this.chkScriptErrors.Text = "Show script errors";
+            this.chkScriptErrors.UseVisualStyleBackColor = true;
+            // 
+            // chkNoSplash
+            // 
+            this.chkNoSplash.AutoSize = true;
+            this.chkNoSplash.Location = new System.Drawing.Point(6, 65);
+            this.chkNoSplash.Name = "chkNoSplash";
+            this.chkNoSplash.Size = new System.Drawing.Size(121, 17);
+            this.chkNoSplash.TabIndex = 8;
+            this.chkNoSplash.Text = "NoSplash/NoPause";
+            this.chkNoSplash.UseVisualStyleBackColor = true;
+            // 
+            // txtArmaPath
+            // 
+            this.txtArmaPath.Location = new System.Drawing.Point(6, 105);
+            this.txtArmaPath.Name = "txtArmaPath";
+            this.txtArmaPath.Size = new System.Drawing.Size(136, 20);
+            this.txtArmaPath.TabIndex = 9;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(7, 89);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(61, 13);
+            this.label9.TabIndex = 10;
+            this.label9.Text = "Arma 3 Exe";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(363, 369);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "MainForm";
             this.Text = "Arma3LauncherLib.Examples";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numServerSteamPort)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numServerGamePort)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
 		}
@@ -348,6 +431,13 @@
         private System.Windows.Forms.ListBox listServerPlayers;
         private System.Windows.Forms.NumericUpDown numServerGamePort;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btnConnect;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.CheckBox chkNoSplash;
+        private System.Windows.Forms.CheckBox chkScriptErrors;
+        private System.Windows.Forms.CheckBox chkWindow;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtArmaPath;
     }
 }
 
