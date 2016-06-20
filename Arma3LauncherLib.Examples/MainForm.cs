@@ -60,22 +60,21 @@ namespace DerAtrox.Arma3LauncherLib.Examples {
                 return;
             }
 
-            ArmaStartSettings settings = new ArmaStartSettings {
+            var settings = new ArmaStartSettings {
                 Windowed = chkWindow.Checked,
                 ShowScriptErrors = chkScriptErrors.Checked,
                 NoPause = chkNoSplash.Checked,
                 Profile = listProfiles.SelectedIndex >= 0 ? listProfiles.SelectedItem.ToString() : ""
             };
 
-            new ArmaLauncher().Connect(_currentServer, txtArmaPath.Text, settings);
+            new ArmaLauncher().Connect(txtArmaPath.Text, _currentServer, settings);
 
         }
 
         private void MainForm_Load(object sender, EventArgs e) {
             try {
                 txtArmaPath.Text = Path.Combine(ArmaUtils.GetArma3Path(), "arma3battleye.exe");
-            }
-            catch {
+            } catch {
                 // ignored
             }
         }

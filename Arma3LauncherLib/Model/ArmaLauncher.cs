@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using DerAtrox.Arma3LauncherLib.Exceptions;
-using DerAtrox.Arma3LauncherLib.Model;
 
 namespace DerAtrox.Arma3LauncherLib.Model {
     /// <summary>
@@ -10,7 +9,7 @@ namespace DerAtrox.Arma3LauncherLib.Model {
     /// </summary>
     public class ArmaLauncher {
         /// <summary>
-        /// Starts Arma 3 with specified settings.
+        /// Starts Arma 3 with specific settings.
         /// </summary>
         /// <param name="arma3StartPath">Path of Arma 3 runable (e.g. path to arma3battleeye.exe)</param>
         /// <param name="startSettings">Start parameters to use.</param>
@@ -19,11 +18,12 @@ namespace DerAtrox.Arma3LauncherLib.Model {
         /// <exception cref="ArmaRunningException">Is thrown, if checkForRunningTask is true and Arma 3 is running.</exception>
         /// <exception cref="ArmaNotFoundException">Is thrown, if arma3StartPath doesn't exists.</exception>
         public void Connect(string arma3StartPath, ArmaStartSettings startSettings = null, bool checkForRunningTask = false, string arma3TaskName = "arma3") {
-            Connect(null, arma3StartPath, startSettings, checkForRunningTask, arma3TaskName);
+            Connect(arma3StartPath, null, startSettings, checkForRunningTask, arma3TaskName);
         }
 
+
         /// <summary>
-        /// Starts Arma 3 with specified settings.
+        /// Starts Arma 3 with specific settings.
         /// </summary>
         /// <param name="server">Arma 3 server to connect to.</param>
         /// <param name="arma3StartPath">Path of Arma 3 runable (e.g. path to arma3battleeye.exe)</param>
@@ -32,7 +32,7 @@ namespace DerAtrox.Arma3LauncherLib.Model {
         /// <param name="arma3TaskName">Custom arma 3 task name.</param>
         /// <exception cref="ArmaRunningException">Is thrown, if checkForRunningTask is true and Arma 3 is running.</exception>
         /// <exception cref="ArmaNotFoundException">Is thrown, if arma3StartPath doesn't exists.</exception>
-        public void Connect(ArmaServer server, string arma3StartPath, ArmaStartSettings startSettings = null, bool checkForRunningTask = false, string arma3TaskName = "arma3") {
+        public void Connect(string arma3StartPath, ArmaServer server, ArmaStartSettings startSettings = null, bool checkForRunningTask = false, string arma3TaskName = "arma3") {
             if (startSettings == null) startSettings = new ArmaStartSettings();
 
             if (checkForRunningTask) {

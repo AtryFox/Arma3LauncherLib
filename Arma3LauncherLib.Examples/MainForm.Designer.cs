@@ -26,6 +26,8 @@
             this.listProfiles = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.numServerGamePort = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.numServerSteamPort = new System.Windows.Forms.NumericUpDown();
             this.lblServerGamePort = new System.Windows.Forms.Label();
@@ -46,19 +48,17 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtServerAdress = new System.Windows.Forms.TextBox();
-            this.numServerGamePort = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
             this.btnConnect = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.chkWindow = new System.Windows.Forms.CheckBox();
-            this.chkScriptErrors = new System.Windows.Forms.CheckBox();
-            this.chkNoSplash = new System.Windows.Forms.CheckBox();
-            this.txtArmaPath = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.txtArmaPath = new System.Windows.Forms.TextBox();
+            this.chkNoSplash = new System.Windows.Forms.CheckBox();
+            this.chkScriptErrors = new System.Windows.Forms.CheckBox();
+            this.chkWindow = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numServerSteamPort)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numServerGamePort)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numServerSteamPort)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -111,6 +111,27 @@
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Test server query";
+            // 
+            // numServerGamePort
+            // 
+            this.numServerGamePort.Location = new System.Drawing.Point(87, 71);
+            this.numServerGamePort.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
+            this.numServerGamePort.Name = "numServerGamePort";
+            this.numServerGamePort.Size = new System.Drawing.Size(75, 20);
+            this.numServerGamePort.TabIndex = 21;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(87, 55);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(56, 13);
+            this.label7.TabIndex = 20;
+            this.label7.Text = "Game port";
             // 
             // label4
             // 
@@ -289,27 +310,6 @@
             this.txtServerAdress.Size = new System.Drawing.Size(173, 20);
             this.txtServerAdress.TabIndex = 0;
             // 
-            // numServerGamePort
-            // 
-            this.numServerGamePort.Location = new System.Drawing.Point(87, 71);
-            this.numServerGamePort.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-            this.numServerGamePort.Name = "numServerGamePort";
-            this.numServerGamePort.Size = new System.Drawing.Size(75, 20);
-            this.numServerGamePort.TabIndex = 21;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(87, 55);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(56, 13);
-            this.label7.TabIndex = 20;
-            this.label7.Text = "Game port";
-            // 
             // btnConnect
             // 
             this.btnConnect.Location = new System.Drawing.Point(63, 184);
@@ -335,25 +335,21 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Arma settings";
             // 
-            // chkWindow
+            // label9
             // 
-            this.chkWindow.AutoSize = true;
-            this.chkWindow.Location = new System.Drawing.Point(6, 19);
-            this.chkWindow.Name = "chkWindow";
-            this.chkWindow.Size = new System.Drawing.Size(106, 17);
-            this.chkWindow.TabIndex = 6;
-            this.chkWindow.Text = "Windowed mode";
-            this.chkWindow.UseVisualStyleBackColor = true;
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(7, 89);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(61, 13);
+            this.label9.TabIndex = 10;
+            this.label9.Text = "Arma 3 Exe";
             // 
-            // chkScriptErrors
+            // txtArmaPath
             // 
-            this.chkScriptErrors.AutoSize = true;
-            this.chkScriptErrors.Location = new System.Drawing.Point(6, 42);
-            this.chkScriptErrors.Name = "chkScriptErrors";
-            this.chkScriptErrors.Size = new System.Drawing.Size(110, 17);
-            this.chkScriptErrors.TabIndex = 7;
-            this.chkScriptErrors.Text = "Show script errors";
-            this.chkScriptErrors.UseVisualStyleBackColor = true;
+            this.txtArmaPath.Location = new System.Drawing.Point(6, 105);
+            this.txtArmaPath.Name = "txtArmaPath";
+            this.txtArmaPath.Size = new System.Drawing.Size(136, 20);
+            this.txtArmaPath.TabIndex = 9;
             // 
             // chkNoSplash
             // 
@@ -365,21 +361,25 @@
             this.chkNoSplash.Text = "NoSplash/NoPause";
             this.chkNoSplash.UseVisualStyleBackColor = true;
             // 
-            // txtArmaPath
+            // chkScriptErrors
             // 
-            this.txtArmaPath.Location = new System.Drawing.Point(6, 105);
-            this.txtArmaPath.Name = "txtArmaPath";
-            this.txtArmaPath.Size = new System.Drawing.Size(136, 20);
-            this.txtArmaPath.TabIndex = 9;
+            this.chkScriptErrors.AutoSize = true;
+            this.chkScriptErrors.Location = new System.Drawing.Point(6, 42);
+            this.chkScriptErrors.Name = "chkScriptErrors";
+            this.chkScriptErrors.Size = new System.Drawing.Size(110, 17);
+            this.chkScriptErrors.TabIndex = 7;
+            this.chkScriptErrors.Text = "Show script errors";
+            this.chkScriptErrors.UseVisualStyleBackColor = true;
             // 
-            // label9
+            // chkWindow
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(7, 89);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(61, 13);
-            this.label9.TabIndex = 10;
-            this.label9.Text = "Arma 3 Exe";
+            this.chkWindow.AutoSize = true;
+            this.chkWindow.Location = new System.Drawing.Point(6, 19);
+            this.chkWindow.Name = "chkWindow";
+            this.chkWindow.Size = new System.Drawing.Size(106, 17);
+            this.chkWindow.TabIndex = 6;
+            this.chkWindow.Text = "Windowed mode";
+            this.chkWindow.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -396,8 +396,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numServerSteamPort)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numServerGamePort)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numServerSteamPort)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.ResumeLayout(false);

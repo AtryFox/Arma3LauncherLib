@@ -3,6 +3,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Net;
 using System.Threading.Tasks;
+using DerAtrox.Arma3LauncherLib.Exceptions;
 using DerAtrox.Arma3LauncherLib.Utilities;
 
 
@@ -16,6 +17,10 @@ namespace DerAtrox.Arma3LauncherLib.Model {
         private readonly string _tempFolder;
         private readonly string _hashFileUrl;
         private readonly string _missionUrl;
+
+        private string MissionFilePath => Path.Combine(_missionFolder, _missionFileName);
+        private string MissionTempFilePath => Path.Combine(_tempFolder, _missionFileName);
+        private string MissionDownloadFilePath => Path.Combine(_tempFolder, Path.GetFileName(_missionUrl));
 
         /// <summary>
         /// Current update status, uses by <see cref="UpdateMission"/> and <see cref="UpdateMissionAsync"/>.
@@ -37,20 +42,23 @@ namespace DerAtrox.Arma3LauncherLib.Model {
             _hashFileUrl = hashFileUrl;
             _missionUrl = missionUrl;
         }
-        
+
         /// <summary>
         /// Checks mission file for updates.
         /// </summary>
         /// <param name="currentHash">Hash of currently used mission file.</param>
         /// <returns>Returns if the mission file is up to date.</returns>
         public bool CheckUpdate(string currentHash) {
+            if (!File.Exists(MissionFilePath)) {
+                return true;
+            }
 
             string remoteHash;
             using (var web = new WebClient()) {
                 try {
                     remoteHash = web.DownloadString(_hashFileUrl);
-                } catch {
-                    throw new NotImplementedException();
+                } catch (Exception e) {
+                    throw new MissionUpdateException("Could not check version. " + e.Message);
                 }
             }
 
@@ -69,15 +77,15 @@ namespace DerAtrox.Arma3LauncherLib.Model {
         private void CleanMissionFolder() {
             try {
                 if (Directory.Exists(_missionFolder)) {
-                    if (File.Exists(Path.Combine(_missionFolder, _missionFileName))) {
-                        File.Delete(Path.Combine(_missionFolder, _missionFileName));
+                    if (File.Exists(MissionFilePath)) {
+                        File.Delete(MissionFilePath);
                     }
                 } else {
                     Directory.CreateDirectory(_tempFolder);
                 }
 
-            } catch {
-                throw new NotImplementedException();
+            } catch (Exception e) {
+                throw new MissionUpdateException("Could not clean mission folder. " + e.Message);
             }
 
         }
@@ -85,48 +93,47 @@ namespace DerAtrox.Arma3LauncherLib.Model {
         private void CleanTempFolder() {
             try {
                 if (Directory.Exists(_tempFolder)) {
-                    if (File.Exists(Path.Combine(_tempFolder, _missionFileName))) {
-                        File.Delete(Path.Combine(_tempFolder, _missionFileName));
+                    if (File.Exists(MissionTempFilePath)) {
+                        File.Delete(MissionTempFilePath);
                     }
 
-                    if (File.Exists(Path.Combine(_tempFolder, Path.GetFileName(_missionUrl)))) {
-                        File.Delete(Path.Combine(_tempFolder, Path.GetFileName(_missionUrl)));
+                    if (File.Exists(MissionDownloadFilePath)) {
+                        File.Delete(MissionDownloadFilePath);
                     }
                 } else {
                     Directory.CreateDirectory(_tempFolder);
                 }
-            } catch {
-                throw new NotImplementedException();
+            } catch (Exception e) {
+                throw new MissionUpdateException("Could not clean temp folder. " + e.Message);
             }
         }
 
         private void UnpackMoveMission() {
-            string extension = new FileInfo(Path.Combine(_tempFolder, Path.GetFileName(_missionUrl))).Extension.ToLower();
+            string extension = new FileInfo(MissionDownloadFilePath).Extension.ToLower();
 
             switch (extension) {
                 case ".pdo":
                     break;
                 case ".zip":
                     try {
-                        ZipFile.ExtractToDirectory(Path.Combine(_tempFolder, Path.GetFileName(_missionUrl)), _tempFolder);
-                    } catch {
-                        throw new NotImplementedException();
+                        ZipFile.ExtractToDirectory(MissionDownloadFilePath, _tempFolder);
+                    } catch (Exception e) {
+                        throw new MissionUpdateException("Could not extract zip (" + MissionDownloadFilePath + ") to folder (" + _tempFolder + "). " + e.Message);
                     }
                     break;
                 default:
-                    throw new NotImplementedException();
+                    throw new MissionUpdateException("Unknown file type");
             }
 
             CleanMissionFolder();
             try {
-                if (File.Exists(Path.Combine(_tempFolder, _missionFileName))) {
-                    File.Move(Path.Combine(_tempFolder, _missionFileName),
-                        Path.Combine(_missionFolder, _missionFileName));
+                if (File.Exists(MissionTempFilePath) && !File.Exists(MissionFilePath)) {
+                    File.Move(MissionTempFilePath, MissionFilePath);
                 } else {
-                    throw new NotImplementedException();
+                    throw new MissionUpdateException("Mission file missing or already existing.");
                 }
-            } catch {
-                throw new NotImplementedException();
+            } catch (Exception e) {
+                throw new MissionUpdateException("Could not move (" + MissionTempFilePath + ") to (" + MissionFilePath + "). " + e.Message);
             }
         }
 
@@ -135,15 +142,14 @@ namespace DerAtrox.Arma3LauncherLib.Model {
                 if (File.Exists(path)) {
                     return GenericUtils.GetMd5FileHash(path);
                 }
-                throw new NotImplementedException();
-            }
-            catch {
-                throw new NotImplementedException();
+                throw new MissionUpdateException("File to hash not found (" + path + ")");
+            } catch (Exception e) {
+                throw new MissionUpdateException("Could not hash mission file. " + e.Message);
             }
         }
 
         /// <summary>
-        /// Downloads and if necessary extracts and hashs the mission file.
+        /// Downloads and if necessary extracts and hashs the mission file. Only supports .zip compression or no compression at all.
         /// </summary>
         /// <param name="disableHashing">Disables generating a new hash.</param>
         /// <param name="hashCompressedFile">Hashs the downloaded archive instead of the extracted mission file.</param>
@@ -155,10 +161,9 @@ namespace DerAtrox.Arma3LauncherLib.Model {
             Status.SetStatus(UpdateStatus.UpdateState.Downloading);
             using (var web = new WebClient()) {
                 try {
-                    //web.DownloadProgressChanged += (sender, args) => Status.SetStatus(args.ProgressPercentage);
-                    web.DownloadFile(new Uri(_missionUrl), Path.Combine(_tempFolder, Path.GetFileName(_missionUrl)));
-                } catch {
-                    throw new NotImplementedException();
+                    web.DownloadFile(new Uri(_missionUrl), MissionDownloadFilePath);
+                } catch (Exception e) {
+                    throw new MissionUpdateException("Could not download mission file. " + e.Message);
                 }
             }
 
@@ -169,20 +174,17 @@ namespace DerAtrox.Arma3LauncherLib.Model {
 
             if (!disableHashing) {
                 Status.SetStatus(UpdateStatus.UpdateState.Hashing);
-                hash =  HashMission(hashCompressedFile ? Path.Combine(_tempFolder, Path.GetFileName(_missionUrl)) : Path.Combine(_missionFolder, _missionFileName));
+                hash = HashMission(hashCompressedFile ? MissionDownloadFilePath : MissionFilePath);
             }
 
             Status.SetStatus(UpdateStatus.UpdateState.Cleaning);
             CleanTempFolder();
-            CleanMissionFolder();
 
             return hash;
-
-
         }
 
         /// <summary>
-        /// Downloads and if necessary extracts and hashs the mission file.
+        /// Downloads and if necessary extracts and hashs the mission file. Only supports .zip compression or no compression at all.
         /// </summary>
         /// <param name="disableHashing">Disables generating a new hash.</param>
         /// <param name="hashCompressedFile">Hashs the downloaded archive instead of the extracted mission file.</param>
@@ -195,12 +197,12 @@ namespace DerAtrox.Arma3LauncherLib.Model {
             using (var web = new WebClient()) {
                 try {
                     web.DownloadProgressChanged += (sender, args) => Status.SetStatus(args.ProgressPercentage);
-                    await web.DownloadFileTaskAsync(_missionUrl, Path.Combine(_tempFolder, Path.GetFileName(_missionUrl)));
-                } catch {
-                    return "";
+                    await web.DownloadFileTaskAsync(_missionUrl, MissionDownloadFilePath);
+                } catch (Exception e) {
+                    throw new MissionUpdateException("Could not download mission file. " + e.Message);
                 }
             }
-            
+
             Status.SetStatus(UpdateStatus.UpdateState.Extracting);
             await Task.Run(() => UnpackMoveMission());
 
@@ -208,12 +210,11 @@ namespace DerAtrox.Arma3LauncherLib.Model {
 
             if (!disableHashing) {
                 Status.SetStatus(UpdateStatus.UpdateState.Hashing);
-                hash = await Task.Run(() => HashMission(hashCompressedFile ? Path.Combine(_tempFolder, Path.GetFileName(_missionUrl)) : Path.Combine(_missionFolder, _missionFileName)));
+                hash = await Task.Run(() => hash = HashMission(hashCompressedFile ? MissionDownloadFilePath : MissionFilePath));
             }
 
             Status.SetStatus(UpdateStatus.UpdateState.Cleaning);
             await Task.Run(() => CleanTempFolder());
-            await Task.Run(() => CleanMissionFolder());
 
             return hash;
         }

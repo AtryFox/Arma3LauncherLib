@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\MissionUpdateException.cs" />
     <Compile Include="Model\ArmaLauncher.cs" />
     <Compile Include="Exceptions\ArmaNotFoundException.cs" />
     <Compile Include="Exceptions\ArmaRunningException.cs" />
