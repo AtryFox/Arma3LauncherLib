@@ -215,6 +215,7 @@ namespace DerAtrox.Arma3LauncherLib.Model {
 
             Status.SetStatus(UpdateStatus.UpdateState.Cleaning);
             await Task.Run(() => CleanTempFolder());
+            Status.SetStatus(UpdateStatus.UpdateState.Completed);
 
             return hash;
         }
