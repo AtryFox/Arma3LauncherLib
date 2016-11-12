@@ -118,6 +118,10 @@ namespace DerAtrox.Arma3LauncherLib.Model {
             /// </summary>
             Hashing,
             /// <summary>
+            /// Update state, when completed the Update.
+            /// </summary>
+            Completed,
+            /// <summary>
             /// Update state, when not defined.
             /// </summary>
             None
