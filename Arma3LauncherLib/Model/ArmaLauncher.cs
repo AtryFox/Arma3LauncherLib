@@ -83,12 +83,12 @@ namespace DerAtrox.Arma3LauncherLib.Model {
             }
 
             if (startSettings.Mods.Count > 0) {
-                string mods = "-mods=\"";
+                string mods = "-mod=\"";
                 mods += string.Join(";", startSettings.Mods);
                 mods += "\"";
                 args.Add(mods);
             } else {
-                args.Add("-mods=\"\"");
+                args.Add("-mod=\"\"");
             }
 
             args.AddRange(startSettings.OtherArgs);
