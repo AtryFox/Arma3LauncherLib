@@ -36,14 +36,14 @@ using DerAtrox.Arma3LauncherLib.Utilities;
 
 // Start game with default start parameters.
 public void RunArma() {
-	string armaPath = Path.Combine(ArmaUtils.GetArma3Path(), "arma3battleeye.exe");
+    string armaPath = Path.Combine(ArmaUtils.GetArma3Path(), "arma3battleeye.exe");
 
     new ArmaLauncher().Connect(armaPath);
 }
 
 // Start game using profile "Günther".
 public void RunArmaProfile() {
-	string armaPath = Path.Combine(ArmaUtils.GetArma3Path(), "arma3battleeye.exe");
+    string armaPath = Path.Combine(ArmaUtils.GetArma3Path(), "arma3battleeye.exe");
 
     var armaSettings = new ArmaStartSettings() { Profile = "Günther" };
 
